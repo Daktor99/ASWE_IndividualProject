@@ -22,7 +22,11 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
-    pass
+    try:
+        game = Gameboard()
+        return render_template("player1_connect.html", status='Pick a Color.')
+    except Exception:
+        return "Could not display player1_connect.html"
 
 
 '''
