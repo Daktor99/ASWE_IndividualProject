@@ -2,13 +2,11 @@ from flask import Flask, render_template, request, redirect, jsonify
 from json import dump
 from Gameboard import Gameboard
 import db
-
-
-app = Flask(__name__)
-
 import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
+
+app = Flask(__name__)
 
 game = None
 
@@ -23,7 +21,9 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     try:
+        global game
         game = Gameboard()
+
         return render_template("player1_connect.html", status='Pick a Color.')
     except Exception:
         return "Could not display player1_connect.html"
@@ -53,7 +53,12 @@ Assign player1 their color
 
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
-    pass
+    try:
+        colorPicked = request.args['color']
+        game.player1 = colorPicked
+        return render_template('p1Color.html', status=colorPicked)
+    except Exception:
+        return "Error with /p1Color"
 
 
 '''
@@ -87,6 +92,7 @@ Process Player 1's move
 def p1_move():
     pass
 
+
 '''
 Same as '/move1' but instead proccess Player 2
 '''
@@ -95,7 +101,6 @@ Same as '/move1' but instead proccess Player 2
 @app.route('/move2', methods=['POST'])
 def p2_move():
     pass
-
 
 
 if __name__ == '__main__':
