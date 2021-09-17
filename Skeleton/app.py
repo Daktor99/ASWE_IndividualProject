@@ -21,6 +21,7 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     try:
+        # make sure to reference global game variable & initialize gameboard object
         global game
         game = Gameboard()
 
@@ -54,9 +55,11 @@ Assign player1 their color
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
     try:
+        # setting player1's color
         colorPicked = request.args['color']
         game.player1 = colorPicked
-        return render_template('p1Color.html', status=colorPicked)
+
+        return render_template('player1_connect.html', status=colorPicked)
     except Exception:
         return "Error with /p1Color"
 
