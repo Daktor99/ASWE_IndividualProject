@@ -8,7 +8,7 @@ log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 
-game = None
+game = Gameboard()
 
 '''
 Implement '/' endpoint
@@ -76,7 +76,19 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    pass
+    try:
+
+        if game.player1 == "red":
+            game.player2 = p2Color = "yellow"
+            return render_template("p2Join.html", status=p2Color)
+        elif game.player1 == "yellow":
+            game.player2 = p2Color = "red"
+            return render_template("p2Join.html", status=p2Color)
+        else:
+            return render_template("p2Join.html", status="Error")
+
+    except Exception:
+        return "Error on '/p2join'"
 
 
 '''
@@ -93,17 +105,51 @@ Process Player 1's move
 
 @app.route('/move1', methods=['POST'])
 def p1_move():
-    pass
+
+    # pull body from post request
+    column = request.json['column']
+
+    # if the move is not valid, return accordingly
+    if not game.isValidTurn("p1"):
+        return jsonify(move=game.board, invalid=True, reason="Not your turn!", winner=game.game_result)
+    elif not game.isValidCol(column):
+        return jsonify(move=game.board, invalid=True, reason="Cannot move here!", winner=game.game_result)
+    elif game.remaining_moves == 0:
+        return jsonify(move=game.board, invalid=True, reason="No more moves to be made!", winner=game.game_result)
+    elif game.game_result != "":
+        return jsonify(move=game.board, invalid=True, reason="Game Over! " + game.game_result + " has won!", winner=game.game_result)
+
+    game.makeMove(column, game.player1)
+    if game.checkIfWon(game.player1):
+        game.game_result = 'p1'
+    return jsonify(move=game.board, invalid=False, winner=game.game_result)
 
 
 '''
-Same as '/move1' but instead proccess Player 2
+Same as '/move1' but instead process Player 2
 '''
 
 
 @app.route('/move2', methods=['POST'])
 def p2_move():
-    pass
+
+    # pull body from post request
+    column = request.json['column']
+
+    # if the move is not valid, return accordingly
+    if not game.isValidTurn("p2"):
+        return jsonify(move=game.board, invalid=True, reason="Not your turn!", winner=game.game_result)
+    elif not game.isValidCol(column):
+        return jsonify(move=game.board, invalid=True, reason="Cannot move here!", winner=game.game_result)
+    elif game.remaining_moves == 0:
+        return jsonify(move=game.board, invalid=True, reason="No more moves to be made!", winner=game.game_result)
+    elif game.game_result != "":
+        return jsonify(move=game.board, invalid=True, reason="Game Over! " + game.game_result + " has won!", winner=game.game_result)
+
+    game.makeMove(column, game.player2)
+    if game.checkIfWon(game.player1):
+        game.game_result = 'p2'
+    return jsonify(move=game.board, invalid=False, winner=game.game_result)
 
 
 if __name__ == '__main__':
