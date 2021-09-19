@@ -58,7 +58,7 @@ class Gameboard():
 
     def checkIfWon(self, playerColor: str):
 
-        if self.checkHorizontal(playerColor) or self.checkVertical(playerColor):
+        if self.checkHorizontal(playerColor) or self.checkVertical(playerColor) or self.checkDiagonal(playerColor):
             return True
 
         return False
@@ -97,10 +97,24 @@ class Gameboard():
         # 4 in a row not found vertically, return false
         return False
 
-    # def checkDiagonal(self, playerColor: str):
-    #
-    #     for row in range(3, 6):
-    #         for col in range()
+    def checkDiagonal(self, playerColor: str):
+
+        # checking diagonals going \
+        for row in range(3, 6):
+            for col in range(0, 4):
+                if playerColor == self.board[row][col] and self.board[row-1][col+1] == playerColor and self.board[row-2][col+2] == playerColor and self.board[row-3][col+3] == playerColor:
+                    return True
+
+        # checking diagonals going /
+        for row in range(3, 6):
+            for col in range(3, 7):
+                if playerColor == self.board[row][col] and self.board[row-1][col-1] == playerColor and self.board[row-2][col-2] == playerColor and self.board[row-3][col-3] == playerColor:
+                    return True
+
+        # no diagonal found, return false
+        return False
+
+
 
 '''
 Add Helper functions as needed to handle moves and update board and turns
