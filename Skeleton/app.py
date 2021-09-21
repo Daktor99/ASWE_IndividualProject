@@ -147,7 +147,7 @@ def p2_move():
         return jsonify(move=game.board, invalid=True, reason="Game Over! " + game.game_result + " has won!", winner=game.game_result)
 
     game.makeMove(column, game.player2)
-    if game.checkIfWon(game.player1):
+    if game.checkIfWon(game.player2):
         game.game_result = 'p2'
     return jsonify(move=game.board, invalid=False, winner=game.game_result)
 
