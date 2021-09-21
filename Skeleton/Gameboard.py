@@ -106,7 +106,7 @@ class Gameboard():
                     return True
 
         # checking diagonals going /
-        for row in range(0, 4):
+        for row in range(0, 3):
             for col in range(3, 7):
                 if playerColor == self.board[row][col] and self.board[row+1][col-1] == playerColor and self.board[row+2][col-2] == playerColor and self.board[row+3][col-3] == playerColor:
                     return True
