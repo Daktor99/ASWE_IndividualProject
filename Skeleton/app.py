@@ -59,7 +59,7 @@ def player1_config():
         colorPicked = request.args['color']
         game.player1 = colorPicked
 
-        return render_template('player1_connect.html', status=colorPicked)
+        return render_template('player1_connect.html', status="Color picked: " + colorPicked)
     except Exception:
         return "Error with /p1Color"
 
@@ -80,10 +80,10 @@ def p2Join():
 
         if game.player1 == "red":
             game.player2 = p2Color = "yellow"
-            return render_template("p2Join.html", status=p2Color)
+            return render_template("p2Join.html", status="Color picked: " + p2Color)
         elif game.player1 == "yellow":
             game.player2 = p2Color = "red"
-            return render_template("p2Join.html", status=p2Color)
+            return render_template("p2Join.html", status="Color picked: " + p2Color)
         else:
             return render_template("p2Join.html", status="Error")
 
