@@ -110,14 +110,12 @@ def p1_move():
     column = request.json['column']
 
     # if the move is not valid, return accordingly
-    if not game.isValidTurn("p1"):
+    if game.remaining_moves == 0:
+        return jsonify(move=game.board, invalid=True, reason="No more moves to be made!", winner=game.game_result)
+    elif not game.isValidTurn("p1"):
         return jsonify(move=game.board, invalid=True, reason="Not your turn!", winner=game.game_result)
     elif not game.isValidCol(column):
         return jsonify(move=game.board, invalid=True, reason="Cannot move here!", winner=game.game_result)
-    elif game.remaining_moves == 0:
-        return jsonify(move=game.board, invalid=True, reason="No more moves to be made!", winner=game.game_result)
-    elif game.game_result != "":
-        return jsonify(move=game.board, invalid=True, reason="Game Over! " + game.game_result + " has won!", winner=game.game_result)
 
     game.makeMove(column, game.player1)
     if game.checkIfWon(game.player1):
@@ -137,14 +135,12 @@ def p2_move():
     column = request.json['column']
 
     # if the move is not valid, return accordingly
-    if not game.isValidTurn("p2"):
+    if game.remaining_moves == 0:
+        return jsonify(move=game.board, invalid=True, reason="No more moves to be made. It's a draw!", winner=game.game_result)
+    elif not game.isValidTurn("p2"):
         return jsonify(move=game.board, invalid=True, reason="Not your turn!", winner=game.game_result)
     elif not game.isValidCol(column):
         return jsonify(move=game.board, invalid=True, reason="Cannot move here!", winner=game.game_result)
-    elif game.remaining_moves == 0:
-        return jsonify(move=game.board, invalid=True, reason="No more moves to be made!", winner=game.game_result)
-    elif game.game_result != "":
-        return jsonify(move=game.board, invalid=True, reason="Game Over! " + game.game_result + " has won!", winner=game.game_result)
 
     game.makeMove(column, game.player2)
     if game.checkIfWon(game.player2):
