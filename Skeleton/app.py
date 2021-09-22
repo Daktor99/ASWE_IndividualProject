@@ -106,6 +106,10 @@ Process Player 1's move
 @app.route('/move1', methods=['POST'])
 def p1_move():
 
+    # checking to see if the game is already over
+    if game.game_result != "":
+        return jsonify(move=game.board, invalid=True, reason="The game is already over, " + game.game_result + " has won!")
+
     # pull body from post request
     column = request.json['column']
 
@@ -130,6 +134,10 @@ Same as '/move1' but instead process Player 2
 
 @app.route('/move2', methods=['POST'])
 def p2_move():
+
+    # checking to see if the game is already over
+    if game.game_result != "":
+        return jsonify(move=game.board, invalid=True, reason="The game is already over, " + game.game_result + " has won!")
 
     # pull body from post request
     column = request.json['column']
