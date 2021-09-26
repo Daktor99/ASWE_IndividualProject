@@ -43,7 +43,7 @@ class Gameboard():
         elif self.current_turn == 'p2':
             self.current_turn = 'p1'
         else:
-            self.current_turn = 'p1'
+            raise ValueError("current_turn is something other than 'p1' or 'p2', this is not allowed")
         return
 
     def makeMove(self, column: str, currPlayer: str):

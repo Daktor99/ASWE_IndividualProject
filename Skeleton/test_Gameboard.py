@@ -62,8 +62,17 @@ class Test_TestGameboard(unittest.TestCase):
         # checking that move is changed to player 2
         assert game.isValidTurn("p2")
 
-    # testing invalid argument
+    # testing when it's not the current player's turn
     def test_isValidTurn3(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # make sure you're not able to move when not your turn
+        assert not game.isValidTurn('p2')
+
+    # testing invalid argument
+    def test_isValidTurn4(self):
 
         # initializing game
         game = Gameboard.Gameboard()
@@ -75,7 +84,7 @@ class Test_TestGameboard(unittest.TestCase):
             assert True
 
     # testing invalid type
-    def test_isValidTurn4(self):
+    def test_isValidTurn5(self):
 
         # initializing game
         game = Gameboard.Gameboard()
@@ -139,3 +148,40 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
+
+
+
+    """
+    Testing GameBoard's changeTurn function
+    """
+
+    # testing normal functionality
+    def test_changeTurn1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # changing turn
+        game.changeTurn()
+        assert game.current_turn == 'p2'
+
+        # changing turn again
+        game.changeTurn()
+        assert game.current_turn == 'p1'
+
+    # testing invalid functionality
+    def test_changeTurn2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # changing current_turn to an invalid value
+        try:
+            game.current_turn = "bad value"
+            game.changeTurn()
+            assert False
+        except ValueError:
+            assert True
+
+
+
