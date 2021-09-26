@@ -9,7 +9,13 @@ class Gameboard():
         self.current_turn = 'p1'
         self.remaining_moves = 42
 
-    def isValidTurn(self, currPlayer: str):
+    def isValidTurn(self, currPlayer: str) -> bool:
+
+        if type(currPlayer) != str:
+            raise TypeError
+
+        if currPlayer not in ['p1', 'p2']:
+            raise ValueError("Valid arguments to this function are either 'p1' or 'p2'")
 
         # check the correct player is making a move
         if self.current_turn != currPlayer:
@@ -17,7 +23,7 @@ class Gameboard():
         else:
             return True
 
-    def isValidCol(self, column: str):
+    def isValidCol(self, column: str) -> bool:
 
         # get the integer representation of column string
         colNum = getColumnNum(column)
