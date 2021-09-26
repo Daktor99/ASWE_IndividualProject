@@ -1,11 +1,12 @@
 import unittest
 import Gameboard
 
-class Test_TestGameboard(unittest.TestCase):
 
+class Test_TestGameboard(unittest.TestCase):
     """
     Testing Gameboard's getColumnNum function
     """
+
     # testing normal functionality
     def test_getColumnNum1(self):
 
@@ -35,8 +36,6 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
-
-
 
     """
     Testing Gameboard's isValidTurn function 
@@ -87,7 +86,56 @@ class Test_TestGameboard(unittest.TestCase):
         except TypeError:
             assert True
 
+    """
+    Testing Gameboard's isValidCol function
+    """
 
+    # testing regular functionality
+    def test_isValidCol1(self):
 
+        # initializing game
+        game = Gameboard.Gameboard()
 
+        # board should be clear, check if we can move in first column
+        assert game.isValidCol("col1")
 
+    # testing unusual functionality: when a column is full
+    def test_isValidCol2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # setting the first column to be full
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0]]
+
+        # make sure we are not able to move on this column
+        assert not game.isValidCol("col1")
+
+    # testing invalid column
+    def test_isValidCol3(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        try:
+            game.isValidCol("col9")
+            assert False
+        except ValueError:
+            assert True
+
+    # testing invalid type
+    def test_isValidCol4(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        try:
+            game.isValidCol(13)
+            assert False
+        except TypeError:
+            assert True
