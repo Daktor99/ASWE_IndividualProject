@@ -120,5 +120,16 @@ class Gameboard():
 Add Helper functions as needed to handle moves and update board and turns
 '''
 
+"""
+    
+"""
 def getColumnNum(col_string: str) -> int:
+
+    if len(col_string) != 4 or col_string[0:3] != 'col':
+        # checking to make sure col_string has "col#" as formatting
+        raise ValueError("Needs to be passed string in format 'col#' where # = 1-7")
+    elif int(col_string[3]) not in range(1, 8):
+        # checking to make sure col_string has column within range of the board
+        raise ValueError("Column number passed must be between 1-7.")
+
     return int(col_string[3]) - 1
