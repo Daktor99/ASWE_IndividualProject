@@ -68,6 +68,9 @@ class Gameboard():
 
     def checkIfWon(self, playerColor: str):
 
+        if not checkValidPlayer(playerColor):
+            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+
         if self.checkHorizontal(playerColor) or self.checkVertical(playerColor) or self.checkDiagonal(playerColor):
             return True
 

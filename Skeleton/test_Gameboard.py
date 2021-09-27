@@ -293,7 +293,7 @@ class Test_TestGameboard(unittest.TestCase):
         # initializing game
         game = Gameboard.Gameboard()
 
-        # filling up first column
+        # making red have 4 in a row
         game.board = [[0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0],
@@ -430,6 +430,7 @@ class Test_TestGameboard(unittest.TestCase):
     # testing invalid type passed
     def test_checkVertical4(self):
 
+        # initializing game
         game = Gameboard.Gameboard()
 
         # filling up first column with vertical 4 in a row
@@ -536,7 +537,107 @@ class Test_TestGameboard(unittest.TestCase):
         except TypeError:
             assert True
 
-    
+
+
+    """
+    Testing Gameboard's checkIfWon function
+    """
+
+    # testing with normal functionality: red player wins vertically
+    def test_checkIfWon1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column with vertical 4 in a row
+        game.board = [['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+
+        assert game.checkIfWon("red")
+        assert not game.checkIfWon("yellow")
+
+    # testing with normal functionality: red player wins horizontally
+    def test_checkIfWon2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # making red have 4 in a row
+        game.board = [[0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 'yellow', 0, 0, 0, 0],
+                      ['red', 'red', 'yellow', 'red', 'red', 'red', 'red']]
+
+        assert game.checkIfWon("red")
+        assert not game.checkIfWon("yellow")
+
+    # testing with normal functionality: yellow player wins diagonally
+    def test_checkIfWon3(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column with diagonal \ 4 in a row
+        game.board = [['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'red', 'yellow', 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 'yellow', 0, 0, 0]]
+
+        assert game.checkIfWon("yellow")
+        assert not game.checkIfWon("red")
+
+    # testing normal functionality: no player wins
+    def test_checkIfWon4(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column with vertical 4 in a row
+        game.board = [[0, 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+
+        assert not game.checkIfWon("red")
+        assert not game.checkIfWon("yellow")
+
+    # testing invalid player color passed
+    def test_checkIfWon5(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # checkIfWon with "blue" as invalid argument
+        try:
+            game.checkIfWon("blue")
+            assert False
+        except ValueError:
+            assert True
+
+    # testing invalid type passed as parameter
+    def test_checkIfWon6(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # checkIfWon with "blue" as invalid argument
+        try:
+            game.checkIfWon(13)
+            assert False
+        except TypeError:
+            assert True
+
+
 
 
 
