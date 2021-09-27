@@ -1,5 +1,6 @@
 import db
 
+
 class Gameboard():
     def __init__(self):
         self.player1 = ""
@@ -15,7 +16,7 @@ class Gameboard():
             raise TypeError("isValidTurn() takes a string as a parameter")
 
         if currPlayer not in ['p1', 'p2']:
-            raise ValueError("Valid arguments to this function are either 'p1' or 'p2'")
+            raise ValueError("Valid arguments to isValidTurn: 'p1' or 'p2'")
 
         # check the correct player is making a move
         if self.current_turn != currPlayer:
@@ -43,13 +44,13 @@ class Gameboard():
         elif self.current_turn == 'p2':
             self.current_turn = 'p1'
         else:
-            raise ValueError("current_turn is something other than 'p1' or 'p2', this is not allowed")
+            raise ValueError("current_turn must be 'p1' or 'p2'")
         return
 
     def makeMove(self, column: str, currPlayer: str):
 
         if currPlayer not in ['red', 'yellow']:
-            raise ValueError("Not a valid player, please provide either 'p1' or 'p2'")
+            raise ValueError("Invalid argument, use either 'p1' or 'p2'")
 
         playerColor = currPlayer
         colNum = getColumnNum(column)
@@ -64,14 +65,16 @@ class Gameboard():
 
         # if we get here, the column is full, and we cannot make a move
         # return
-        raise ValueError("Cannot make a move in this column, all spots are taken.")
+        raise ValueError("Cannot make a move in this column, all spots taken.")
 
     def checkIfWon(self, playerColor: str):
 
         if not checkValidPlayer(playerColor):
-            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+            raise ValueError("Invalid argument, use either 'red' or 'yellow'.")
 
-        if self.checkHorizontal(playerColor) or self.checkVertical(playerColor) or self.checkDiagonal(playerColor):
+        if self.checkHorizontal(playerColor) \
+                or self.checkVertical(playerColor) \
+                or self.checkDiagonal(playerColor):
             return True
 
         return False
@@ -79,7 +82,7 @@ class Gameboard():
     def checkHorizontal(self, playerColor: str):
 
         if not checkValidPlayer(playerColor):
-            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+            raise ValueError("Invalid argument, use either 'red' or 'yellow'")
 
         for row in range(0, 6):
             countInARow = 0
@@ -99,7 +102,7 @@ class Gameboard():
     def checkVertical(self, playerColor: str):
 
         if not checkValidPlayer(playerColor):
-            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+            raise ValueError("Invalid argument, use either 'red' or 'yellow'")
 
         for col in range(0, 7):
             countInARow = 0
@@ -119,23 +122,28 @@ class Gameboard():
     def checkDiagonal(self, playerColor: str):
 
         if not checkValidPlayer(playerColor):
-            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+            raise ValueError("Invalid argument, use either 'red' or 'yellow'")
 
         # checking diagonals going \
         for row in range(0, 3):
             for col in range(0, 4):
-                if playerColor == self.board[row][col] and self.board[row+1][col+1] == playerColor and self.board[row+2][col+2] == playerColor and self.board[row+3][col+3] == playerColor:
+                if playerColor == self.board[row][col] \
+                        and self.board[row+1][col+1] == playerColor \
+                        and self.board[row+2][col+2] == playerColor \
+                        and self.board[row+3][col+3] == playerColor:
                     return True
 
         # checking diagonals going /
         for row in range(0, 3):
             for col in range(3, 7):
-                if playerColor == self.board[row][col] and self.board[row+1][col-1] == playerColor and self.board[row+2][col-2] == playerColor and self.board[row+3][col-3] == playerColor:
+                if playerColor == self.board[row][col] \
+                        and self.board[row+1][col-1] == playerColor \
+                        and self.board[row+2][col-2] == playerColor \
+                        and self.board[row+3][col-3] == playerColor:
                     return True
 
         # no diagonal found, return false
         return False
-
 
 
 '''
@@ -143,18 +151,21 @@ Add Helper functions as needed to handle moves and update board and turns
 '''
 
 """
-    
+Returns column number from JSON object
 """
+
+
 def getColumnNum(col_string: str) -> int:
 
     if len(col_string) != 4 or col_string[0:3] != 'col':
         # checking to make sure col_string has "col#" as formatting
-        raise ValueError("Needs to be passed string in format 'col#' where # = 1-7")
+        raise ValueError("Invalid format: use 'col#' where # = 1-7")
     elif int(col_string[3]) not in range(1, 8):
         # checking to make sure col_string has column within range of the board
         raise ValueError("Column number passed must be between 1-7.")
 
     return int(col_string[3]) - 1
+
 
 def checkValidPlayer(playerColor: str) -> bool:
 
