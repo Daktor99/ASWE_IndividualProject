@@ -1,7 +1,5 @@
-from flask import Flask, render_template, request, redirect, jsonify
-from json import dump
+from flask import Flask, render_template, request, jsonify
 from Gameboard import Gameboard
-import db
 import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -21,7 +19,7 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     try:
-        # make sure to reference global game variable & initialize gameboard object
+        # make sure to reference global game variable
         global game
         game = Gameboard()
 
@@ -59,7 +57,8 @@ def player1_config():
         colorPicked = request.args['color']
         game.player1 = colorPicked
 
-        return render_template('player1_connect.html', status="Color picked: " + colorPicked)
+        return render_template('player1_connect.html',
+                               status="Color picked: " + colorPicked)
     except Exception:
         return "Error with /p1Color"
 
@@ -80,12 +79,15 @@ def p2Join():
 
         if game.player1 == "red":
             game.player2 = p2Color = "yellow"
-            return render_template("p2Join.html", status="Color picked: " + p2Color)
+            return render_template("p2Join.html",
+                                   status="Color picked: " + p2Color)
         elif game.player1 == "yellow":
             game.player2 = p2Color = "red"
-            return render_template("p2Join.html", status="Color picked: " + p2Color)
+            return render_template("p2Join.html",
+                                   status="Color picked: " + p2Color)
         else:
-            return render_template("p2Join.html", status="Error")
+            return render_template("p2Join.html",
+                                   status="Error")
 
     except Exception:
         return "Error on '/p2join'"
@@ -108,23 +110,37 @@ def p1_move():
 
     # checking to see if the game is already over
     if game.game_result != "":
-        return jsonify(move=game.board, invalid=True, reason="The game is already over, " + game.game_result + " has won!")
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="The game is already over, "
+                              + game.game_result
+                              + " has won!")
 
     # pull body from post request
     column = request.json['column']
 
     # if the move is not valid, return accordingly
     if game.remaining_moves == 0:
-        return jsonify(move=game.board, invalid=True, reason="No more moves to be made!", winner=game.game_result)
+        return jsonify(move=game.board, invalid=True,
+                       reason="No more moves to be made!",
+                       winner=game.game_result)
     elif not game.isValidTurn("p1"):
-        return jsonify(move=game.board, invalid=True, reason="Not your turn!", winner=game.game_result)
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="Not your turn!",
+                       winner=game.game_result)
     elif not game.isValidCol(column):
-        return jsonify(move=game.board, invalid=True, reason="Cannot move here!", winner=game.game_result)
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="Cannot move here!",
+                       winner=game.game_result)
 
     game.makeMove(column, game.player1)
     if game.checkIfWon(game.player1):
         game.game_result = 'p1'
-    return jsonify(move=game.board, invalid=False, winner=game.game_result)
+    return jsonify(move=game.board,
+                   invalid=False,
+                   winner=game.game_result)
 
 
 '''
@@ -137,23 +153,38 @@ def p2_move():
 
     # checking to see if the game is already over
     if game.game_result != "":
-        return jsonify(move=game.board, invalid=True, reason="The game is already over, " + game.game_result + " has won!")
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="The game is already over, "
+                              + game.game_result
+                              + " has won!")
 
     # pull body from post request
     column = request.json['column']
 
     # if the move is not valid, return accordingly
     if game.remaining_moves == 0:
-        return jsonify(move=game.board, invalid=True, reason="No more moves to be made. It's a draw!", winner=game.game_result)
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="No more moves to be made. It's a draw!",
+                       winner=game.game_result)
     elif not game.isValidTurn("p2"):
-        return jsonify(move=game.board, invalid=True, reason="Not your turn!", winner=game.game_result)
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="Not your turn!",
+                       winner=game.game_result)
     elif not game.isValidCol(column):
-        return jsonify(move=game.board, invalid=True, reason="Cannot move here!", winner=game.game_result)
+        return jsonify(move=game.board,
+                       invalid=True,
+                       reason="Cannot move here!",
+                       winner=game.game_result)
 
     game.makeMove(column, game.player2)
     if game.checkIfWon(game.player2):
         game.game_result = 'p2'
-    return jsonify(move=game.board, invalid=False, winner=game.game_result)
+    return jsonify(move=game.board,
+                   invalid=False,
+                   winner=game.game_result)
 
 
 if __name__ == '__main__':
