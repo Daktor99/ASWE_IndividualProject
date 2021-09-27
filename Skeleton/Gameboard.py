@@ -48,6 +48,9 @@ class Gameboard():
 
     def makeMove(self, column: str, currPlayer: str):
 
+        if currPlayer not in ['red', 'yellow']:
+            raise ValueError("Not a valid player, please provide either 'p1' or 'p2'")
+
         playerColor = currPlayer
         colNum = getColumnNum(column)
 
@@ -55,12 +58,13 @@ class Gameboard():
         for row in range(0, 6):
             if self.board[5 - row][colNum] == 0:
                 self.board[5 - row][colNum] = playerColor
-                break
+                self.remaining_moves -= 1
+                self.changeTurn()
+                return
 
-        self.remaining_moves -= 1
-        self.changeTurn()
-
-        return
+        # if we get here, the column is full, and we cannot make a move
+        # return
+        raise ValueError("Cannot make a move in this column, all spots are taken.")
 
     def checkIfWon(self, playerColor: str):
 
