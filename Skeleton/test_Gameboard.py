@@ -445,7 +445,99 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
+
+
+
+    """
+    Testing Gameboard's checkDiagonal function
+    """
+
+    # testing normal functionality: diagonal exists in \ direction
+    def test_checkDiagonal1(self):
+
+        # initializing game object
+        game = Gameboard.Gameboard()
+
+        # filling up first column with diagonal \ 4 in a row
+        game.board = [['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'red', 'yellow', 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 'yellow', 0, 0, 0]]
+
+        assert game.checkDiagonal("yellow")
+        assert not game.checkDiagonal("red")
+
+    # testing normal functionality: diagonal exists in / direction
+    def test_checkDiagonal2(self):
+
+        # initializing game object
+        game = Gameboard.Gameboard()
+
+        # filling up first column with diagonal / 4 in a row
+        game.board = [[0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 'yellow'],
+                      [0, 0, 0, 0, 0, 'yellow', 'red'],
+                      [0, 0, 0, 0, 'yellow', 'yellow', 'red'],
+                      [0, 0, 0, 'yellow', 'red', 'red', 'red']]
+
+        assert game.checkDiagonal("yellow")
+        assert not game.checkDiagonal("red")
+
+    # testing no diagonal win exists
+    def test_checkDiagonal3(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column, no diagonal 4 in a row
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0]]
+
+        assert not game.checkDiagonal("yellow")
+        assert not game.checkDiagonal("red")
+
+    # testing invalid argument passed
+    def test_checkDiagonal4(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column with diagonal / 4 in a row
+        game.board = [[0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 'yellow'],
+                      [0, 0, 0, 0, 0, 'yellow', 'red'],
+                      [0, 0, 0, 0, 'yellow', 'yellow', 'red'],
+                      [0, 0, 0, 'yellow', 'red', 'red', 'red']]
+
+        # try calling function with invalid player color
+        try:
+            game.checkDiagonal("blue")
+            assert False
+        except ValueError:
+            assert True
+
+    # testing invalid type passed to function
+    def test_checkDiagonal5(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        try:
+            game.checkDiagonal(13)
+            assert False
+        except TypeError:
+            assert True
+
     
+
 
 
 

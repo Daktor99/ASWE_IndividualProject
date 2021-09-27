@@ -115,6 +115,9 @@ class Gameboard():
 
     def checkDiagonal(self, playerColor: str):
 
+        if not checkValidPlayer(playerColor):
+            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+
         # checking diagonals going \
         for row in range(0, 3):
             for col in range(0, 4):
