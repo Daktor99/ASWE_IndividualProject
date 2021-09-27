@@ -12,7 +12,7 @@ class Gameboard():
     def isValidTurn(self, currPlayer: str) -> bool:
 
         if type(currPlayer) != str:
-            raise TypeError
+            raise TypeError("isValidTurn() takes a string as a parameter")
 
         if currPlayer not in ['p1', 'p2']:
             raise ValueError("Valid arguments to this function are either 'p1' or 'p2'")
@@ -74,6 +74,9 @@ class Gameboard():
         return False
 
     def checkHorizontal(self, playerColor: str):
+
+        if not checkValidPlayer(playerColor):
+            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
 
         for row in range(0, 6):
             countInARow = 0
@@ -143,3 +146,13 @@ def getColumnNum(col_string: str) -> int:
         raise ValueError("Column number passed must be between 1-7.")
 
     return int(col_string[3]) - 1
+
+def checkValidPlayer(playerColor: str) -> bool:
+
+    if type(playerColor) != str:
+        raise TypeError("checkValidPlayer takes a string as an argument")
+
+    if playerColor in ['red', 'yellow']:
+        return True
+    else:
+        return False

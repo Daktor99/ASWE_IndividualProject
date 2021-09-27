@@ -256,3 +256,113 @@ class Test_TestGameboard(unittest.TestCase):
             assert True
 
 
+
+    """
+    Testing Gameboard's checkValidPlayer function
+    """
+
+    # testing normal functionality: player is valid
+    def test_checkValidPlayer1(self):
+
+        assert Gameboard.checkValidPlayer('red')
+        assert Gameboard.checkValidPlayer('yellow')
+
+    # testing normal functionality: player is not valid
+    def test_checkValidPlayer2(self):
+
+        assert not Gameboard.checkValidPlayer("blue")
+
+    # testing invalid argument type
+    def test_checkValidPlayer3(self):
+
+        try:
+            Gameboard.checkValidPlayer(164)
+            assert False
+        except TypeError:
+            assert True
+
+
+
+    """
+    Testing Gameboard's checkHorizontal function
+    """
+
+    # testing normal functionality: horizontal 4 in a row exists
+    def test_checkHorizontal1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column
+        game.board = [[0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 'yellow', 0, 0, 0, 0],
+                      ['red', 'red', 'yellow', 'red', 'red', 'red', 'red']]
+
+        # check to make sure red won
+        assert game.checkHorizontal("red")
+
+    # testing normal functionality: no horizontal 4 in a row exists
+    def test_checkHorizontal2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column, no horizontal 4 in a row
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0]]
+
+        # check to make sure neither side has won
+        assert not game.checkHorizontal("red")
+        assert not game.checkHorizontal("yellow")
+
+    # testing invalid argument being passed
+    def test_checkHorizontal3(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column, no horizontal 4 in a row
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0]]
+
+        try:
+            game.checkHorizontal("blue")
+            assert False
+        except ValueError:
+            assert True
+
+    # testing invalid type being passed
+    def test_checkHorizontal4(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column, no horizontal 4 in a row
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0]]
+
+        # passing invalid argument to checkHorizontal
+        try:
+            game.checkHorizontal(246)
+            assert False
+        except TypeError:
+            assert True
+
+
+    
+
