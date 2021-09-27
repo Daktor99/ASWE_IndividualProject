@@ -17,7 +17,7 @@ class Test_TestGameboard(unittest.TestCase):
     # testing with column outside of 1-7.
     def test_getColumnNum2(self):
         try:
-            result = Gameboard.getColumnNum("col9")
+            Gameboard.getColumnNum("col9")
             assert False
         except ValueError:
             assert True
@@ -25,7 +25,7 @@ class Test_TestGameboard(unittest.TestCase):
     # testing with incorrect formatting of argument
     def test_getColumnNum3(self):
         try:
-            result = Gameboard.getColumnNum("column6")
+            Gameboard.getColumnNum("column6")
             assert False
         except ValueError:
             assert True
@@ -33,16 +33,13 @@ class Test_TestGameboard(unittest.TestCase):
     # testing with invalid input
     def test_getColumnNum4(self):
         try:
-            result = Gameboard.getColumnNum(15)
+            Gameboard.getColumnNum(15)
             assert False
         except TypeError:
             assert True
 
-
-
-
     """
-    Testing Gameboard's isValidTurn function 
+    Testing Gameboard's isValidTurn function
     """
 
     # testing normal functionality
@@ -82,7 +79,7 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         try:
-            result = game.isValidTurn("p3")
+            game.isValidTurn("p3")
             assert False
         except ValueError:
             assert True
@@ -94,12 +91,10 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         try:
-            result = game.isValidTurn(13)
+            game.isValidTurn(13)
             assert False
         except TypeError:
             assert True
-
-
 
     """
     Testing Gameboard's isValidCol function
@@ -155,8 +150,6 @@ class Test_TestGameboard(unittest.TestCase):
         except TypeError:
             assert True
 
-
-
     """
     Testing GameBoard's changeTurn function
     """
@@ -188,8 +181,6 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except ValueError:
             assert True
-
-
 
     """
     Testing Gameboard's makeMove function
@@ -255,8 +246,6 @@ class Test_TestGameboard(unittest.TestCase):
         except ValueError:
             assert True
 
-
-
     """
     Testing Gameboard's checkValidPlayer function
     """
@@ -280,8 +269,6 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
-
-
 
     """
     Testing Gameboard's checkHorizontal function
@@ -365,8 +352,6 @@ class Test_TestGameboard(unittest.TestCase):
         except TypeError:
             assert True
 
-
-
     """
     Testing Gameboard's checkVertical
     """
@@ -446,8 +431,6 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
-
-
 
     """
     Testing Gameboard's checkDiagonal function
@@ -536,8 +519,6 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
-
-
 
     """
     Testing Gameboard's checkIfWon function
@@ -636,10 +617,3 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
-
-
-
-
-
-
-
