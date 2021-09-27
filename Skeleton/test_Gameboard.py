@@ -296,13 +296,15 @@ class Test_TestGameboard(unittest.TestCase):
         # filling up first column
         game.board = [[0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0],
-                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 'yellow', 0, 0, 0, 0],
                       ['red', 'red', 'yellow', 'red', 'red', 'red', 'red']]
 
         # check to make sure red won
         assert game.checkHorizontal("red")
+        # check to make sure yellow doesn't have winning state either
+        assert not game.checkVertical("yellow")
 
     # testing normal functionality: no horizontal 4 in a row exists
     def test_checkHorizontal2(self):
@@ -364,5 +366,87 @@ class Test_TestGameboard(unittest.TestCase):
             assert True
 
 
+
+    """
+    Testing Gameboard's checkVertical
+    """
+
+    # testing normal functionality: vertical win exists
+    def test_checkVertical1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column with vertical 4 in a row
+        game.board = [['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+
+        # check to make sure that vertical win is detected
+        assert game.checkVertical("red")
+        # check to make sure that yellow doesn't have vertical 4 in a row
+        assert not game.checkVertical("yellow")
+
+    # testing normal functionality: no vertical 4 in a row
+    def test_checkVertical(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # filling up first column, no vertical 4 in a row
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 'yellow'],
+                      ['red', 0, 0, 0, 0, 0, 'red']]
+
+        # making sure that no one won
+        assert not game.checkVertical("red")
+        assert not game.checkVertical("yellow")
+
+    # testing invalid color argument passed
+    def test_checkVertical3(self):
+
+        game = Gameboard.Gameboard()
+
+        # filling up first column with vertical 4 in a row
+        game.board = [['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+
+        try:
+            game.checkVertical("blue")
+            assert False
+        except ValueError:
+            assert True
+
+    # testing invalid type passed
+    def test_checkVertical4(self):
+
+        game = Gameboard.Gameboard()
+
+        # filling up first column with vertical 4 in a row
+        game.board = [['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['red', 0, 0, 0, 0, 0, 0],
+                      ['yellow', 'yellow', 0, 0, 0, 0, 0],
+                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+
+        try:
+            game.checkVertical(13)
+            assert False
+        except TypeError:
+            assert True
     
+
+
+
 

@@ -95,6 +95,9 @@ class Gameboard():
 
     def checkVertical(self, playerColor: str):
 
+        if not checkValidPlayer(playerColor):
+            raise ValueError("Player color entered is not valid, please use either 'red' or 'yellow'.")
+
         for col in range(0, 7):
             countInARow = 0
             for row in range(0, 6):
