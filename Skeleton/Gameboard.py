@@ -45,12 +45,18 @@ class Gameboard():
             raise ValueError("current_turn must be 'p1' or 'p2'")
         return
 
-    def makeMove(self, column: str, currPlayer: str):
+    def makeMove(self, column: str, player: str, playerColor: str):
 
-        if currPlayer not in ['red', 'yellow']:
+        if playerColor not in ['red', 'yellow']:
             raise ValueError("Invalid argument, use either 'p1' or 'p2'")
+        elif not self.isValidTurn(player):
+            raise ValueError("Not your turn!")
+        elif self.remaining_moves == 0 and self.game_result == "":
+            raise ValueError("The game has ended in a draw!")
+        elif self.game_result != "":
+            raise ValueError("Winner has already been decided: "
+                             + self.game_result + " has won!")
 
-        playerColor = currPlayer
         colNum = getColumnNum(column)
 
         # place in the lowest available slot
@@ -59,6 +65,7 @@ class Gameboard():
                 self.board[5 - row][colNum] = playerColor
                 self.remaining_moves -= 1
                 self.changeTurn()
+                self.checkIfWon(playerColor)
                 return
 
         # if we get here, the column is full, and we cannot make a move
@@ -73,6 +80,7 @@ class Gameboard():
         if self.checkHorizontal(playerColor) \
                 or self.checkVertical(playerColor) \
                 or self.checkDiagonal(playerColor):
+            self.game_result = playerColor
             return True
 
         return False

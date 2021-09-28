@@ -8,7 +8,7 @@ class Test_TestGameboard(unittest.TestCase):
     Testing Gameboard's getColumnNum function
     """
 
-    # testing normal functionality
+    # testing normal functionality: column selected within bounds
     def test_getColumnNum1(self):
 
         result = Gameboard.getColumnNum("col4")
@@ -42,7 +42,7 @@ class Test_TestGameboard(unittest.TestCase):
     Testing Gameboard's isValidTurn function
     """
 
-    # testing normal functionality
+    # testing normal functionality: it is the current player's turn
     def test_isValidTurn1(self):
 
         # initializing game
@@ -58,7 +58,7 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # making move to change turn
-        game.makeMove("col1", 'red')
+        game.makeMove('col1', 'p1', 'red')
 
         # checking that move is changed to player 2
         assert game.isValidTurn("p2")
@@ -193,7 +193,7 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # making first move in first column
-        game.makeMove("col1", "red")
+        game.makeMove("col1", 'p1', "red")
 
         # make sure that chip placed in correct spot
         assert game.board[5][0] == "red"
@@ -215,7 +215,7 @@ class Test_TestGameboard(unittest.TestCase):
                       ['red', 0, 0, 0, 0, 0, 0]]
 
         try:
-            game.makeMove("col1", "red")
+            game.makeMove('col1', 'p1', 'red')
             assert False
         except ValueError:
             assert True
@@ -228,20 +228,61 @@ class Test_TestGameboard(unittest.TestCase):
 
         try:
             # make move with invalid column
-            game.makeMove("col9", "red")
+            game.makeMove('col9', 'p1', 'red')
             assert False
         except ValueError:
             assert True
 
-    # testing with invalid player
+    # testing with invalid playerColor
     def test_makeMove4(self):
 
         # initializing game
         game = Gameboard.Gameboard()
 
         try:
-            # make move with invalid player argument
-            game.makeMove("col2", "blue")
+            # make move with invalid playerColor argument
+            game.makeMove('col2', 'p1', 'blue')
+            assert False
+        except ValueError:
+            assert True
+
+    # testing with invalid player turn
+    def test_makeMove5(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        try:
+            # make move with invalid playerColor argument
+            game.makeMove('col2', 'p2', 'red')
+            assert False
+        except ValueError:
+            assert True
+
+    # testing when the game has no move available moves to be made
+    def test_makeMove6(self):
+
+        # initializing game & reducing remaining moves to 0
+        game = Gameboard.Gameboard()
+        game.remaining_moves = 0
+
+        try:
+            # make move with invalid playerColor argument
+            game.makeMove('col2', 'p1', 'red')
+            assert False
+        except ValueError:
+            assert True
+
+    # testing when the game already has a winner
+    def test_makeMove7(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+        game.game_result = 'p1'
+
+        try:
+            # try to make a move with winner
+            game.makeMove('col1', 'p1', 'red')
             assert False
         except ValueError:
             assert True
