@@ -48,7 +48,7 @@ class Gameboard():
     def makeMove(self, column: str, player: str, playerColor: str):
 
         if playerColor not in ['red', 'yellow']:
-            raise ValueError("Invalid argument, use either 'p1' or 'p2'")
+            raise ValueError("Please pick a color!")
         elif not self.isValidTurn(player):
             raise ValueError("Not your turn!")
         elif self.remaining_moves == 0 and self.game_result == "":

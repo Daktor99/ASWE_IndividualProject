@@ -417,7 +417,7 @@ class Test_TestGameboard(unittest.TestCase):
         assert not game.checkVertical("yellow")
 
     # testing normal functionality: no vertical 4 in a row
-    def test_checkVertical(self):
+    def test_checkVertical2(self):
 
         # initializing game
         game = Gameboard.Gameboard()
