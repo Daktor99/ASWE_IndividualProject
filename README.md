@@ -3,8 +3,8 @@ Individual project for Fall 2021: Part 1
 
 ## Notes for IAs that are grading:
 I have developed this before we were told to branch our main branch.
-As of right now, I have a branch called Part 1 when I believe that I have isolated my part 1 homework.
-I also have a branch called "part 2" that holds the submission for part 2, my most updated version of the homework is maintained in main.
+As of right now, I have a branch called "Part1" when I believe that I have isolated my part 1 homework.
+I also have a branch called "Part2" that holds the submission for part 2, my most updated version of the homework is maintained in main.
 
 ## Personal Info:
 Full name: Emanuel Daka
