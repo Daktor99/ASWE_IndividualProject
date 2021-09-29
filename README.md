@@ -10,5 +10,9 @@ I also have a branch called "Part2" that holds the submission for part 2, my mos
 Full name: Emanuel Daka
 UNI: ed2918
 
-## YouTube Link:
+## YouTube Links:
+### Part 1 YouTube Link
 https://youtu.be/V61vbsLQn98
+
+### Part 2 YouTube Link
+https://youtu.be/g8i0HZjWGn8
