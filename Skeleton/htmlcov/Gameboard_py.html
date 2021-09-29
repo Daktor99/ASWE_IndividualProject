@@ -102,7 +102,7 @@
     <p id="t48" class="run"><span class="n"><a href="#t48">48</a></span><span class="t">    <span class="key">def</span> <span class="nam">makeMove</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">column</span><span class="op">:</span> <span class="nam">str</span><span class="op">,</span> <span class="nam">player</span><span class="op">:</span> <span class="nam">str</span><span class="op">,</span> <span class="nam">playerColor</span><span class="op">:</span> <span class="nam">str</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t49" class="pln"><span class="n"><a href="#t49">49</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t50" class="run"><span class="n"><a href="#t50">50</a></span><span class="t">        <span class="key">if</span> <span class="nam">playerColor</span> <span class="key">not</span> <span class="key">in</span> <span class="op">[</span><span class="str">'red'</span><span class="op">,</span> <span class="str">'yellow'</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t51" class="run"><span class="n"><a href="#t51">51</a></span><span class="t">            <span class="key">raise</span> <span class="nam">ValueError</span><span class="op">(</span><span class="str">"Invalid argument, use either 'p1' or 'p2'"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t51" class="run"><span class="n"><a href="#t51">51</a></span><span class="t">            <span class="key">raise</span> <span class="nam">ValueError</span><span class="op">(</span><span class="str">"Please pick a color!"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t52" class="run"><span class="n"><a href="#t52">52</a></span><span class="t">        <span class="key">elif</span> <span class="key">not</span> <span class="nam">self</span><span class="op">.</span><span class="nam">isValidTurn</span><span class="op">(</span><span class="nam">player</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t53" class="run"><span class="n"><a href="#t53">53</a></span><span class="t">            <span class="key">raise</span> <span class="nam">ValueError</span><span class="op">(</span><span class="str">"Not your turn!"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t54" class="run"><span class="n"><a href="#t54">54</a></span><span class="t">        <span class="key">elif</span> <span class="nam">self</span><span class="op">.</span><span class="nam">remaining_moves</span> <span class="op">==</span> <span class="num">0</span> <span class="key">and</span> <span class="nam">self</span><span class="op">.</span><span class="nam">game_result</span> <span class="op">==</span> <span class="str">""</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -241,7 +241,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-09-28 19:57 -0400
+            created at 2021-09-29 19:12 -0400
         </p>
     </div>
 </div>
