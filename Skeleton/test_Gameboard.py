@@ -58,7 +58,7 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # making move to change turn
-        game.makeMove('col1', 'p1', 'red')
+        game.makeMove('col1', 'p1', "red")
 
         # checking that move is changed to player 2
         assert game.isValidTurn("p2")
@@ -117,11 +117,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # setting the first column to be full
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0]]
+                      ["red", 0, 0, 0, 0, 0, 0]]
 
         # make sure we are not able to move on this column
         assert not game.isValidCol("col1")
@@ -208,14 +208,14 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0]]
+                      ["red", 0, 0, 0, 0, 0, 0]]
 
         try:
-            game.makeMove('col1', 'p1', 'red')
+            game.makeMove('col1', 'p1', "red")
             assert False
         except ValueError:
             assert True
@@ -228,7 +228,7 @@ class Test_TestGameboard(unittest.TestCase):
 
         try:
             # make move with invalid column
-            game.makeMove('col9', 'p1', 'red')
+            game.makeMove('col9', 'p1', "red")
             assert False
         except ValueError:
             assert True
@@ -254,7 +254,7 @@ class Test_TestGameboard(unittest.TestCase):
 
         try:
             # make move with invalid playerColor argument
-            game.makeMove('col2', 'p2', 'red')
+            game.makeMove('col2', 'p2', "red")
             assert False
         except ValueError:
             assert True
@@ -268,7 +268,7 @@ class Test_TestGameboard(unittest.TestCase):
 
         try:
             # make move with invalid playerColor argument
-            game.makeMove('col2', 'p1', 'red')
+            game.makeMove('col2', 'p1', "red")
             assert False
         except ValueError:
             assert True
@@ -282,7 +282,7 @@ class Test_TestGameboard(unittest.TestCase):
 
         try:
             # try to make a move with winner
-            game.makeMove('col1', 'p1', 'red')
+            game.makeMove('col1', 'p1', "red")
             assert False
         except ValueError:
             assert True
@@ -294,7 +294,7 @@ class Test_TestGameboard(unittest.TestCase):
     # testing normal functionality: player is valid
     def test_checkValidPlayer1(self):
 
-        assert Gameboard.checkValidPlayer('red')
+        assert Gameboard.checkValidPlayer("red")
         assert Gameboard.checkValidPlayer('yellow')
 
     # testing normal functionality: player is not valid
@@ -327,7 +327,7 @@ class Test_TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 'yellow', 0, 0, 0, 0],
-                      ['red', 'red', 'yellow', 'red', 'red', 'red', 'red']]
+                      ["red", "red", 'yellow', "red", "red", "red", "red"]]
 
         # check to make sure red won
         assert game.checkHorizontal("red")
@@ -342,11 +342,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column, no horizontal 4 in a row
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0]]
+                      ["red", 0, 0, 0, 0, 0, 0]]
 
         # check to make sure neither side has won
         assert not game.checkHorizontal("red")
@@ -360,11 +360,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column, no horizontal 4 in a row
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0]]
+                      ["red", 0, 0, 0, 0, 0, 0]]
 
         try:
             game.checkHorizontal("blue")
@@ -380,11 +380,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column, no horizontal 4 in a row
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0]]
+                      ["red", 0, 0, 0, 0, 0, 0]]
 
         # passing invalid argument to checkHorizontal
         try:
@@ -404,12 +404,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # filling up first column with vertical 4 in a row
-        game.board = [['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+        game.board = [["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+                      ["red", 'yellow', 'yellow', 0, 0, 0, 0]]
 
         # check to make sure that vertical win is detected
         assert game.checkVertical("red")
@@ -424,11 +424,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column, no vertical 4 in a row
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 'yellow'],
-                      ['red', 0, 0, 0, 0, 0, 'red']]
+                      ["red", 0, 0, 0, 0, 0, "red"]]
 
         # making sure that no one won
         assert not game.checkVertical("red")
@@ -440,12 +440,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # filling up first column with vertical 4 in a row
-        game.board = [['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+        game.board = [["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+                      ["red", 'yellow', 'yellow', 0, 0, 0, 0]]
 
         try:
             game.checkVertical("blue")
@@ -460,12 +460,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # filling up first column with vertical 4 in a row
-        game.board = [['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+        game.board = [["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+                      ["red", 'yellow', 'yellow', 0, 0, 0, 0]]
 
         try:
             game.checkVertical(13)
@@ -484,12 +484,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # filling up first column with diagonal \ 4 in a row
-        game.board = [['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+        game.board = [["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'red', 'yellow', 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 'yellow', 0, 0, 0]]
+                      ["red", 'yellow', 0, 0, 0, 0, 0],
+                      ["red", "red", 'yellow', 0, 0, 0, 0],
+                      ["red", 'yellow', 'yellow', 'yellow', 0, 0, 0]]
 
         assert game.checkDiagonal("yellow")
         assert not game.checkDiagonal("red")
@@ -504,9 +504,9 @@ class Test_TestGameboard(unittest.TestCase):
         game.board = [[0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 'yellow'],
-                      [0, 0, 0, 0, 0, 'yellow', 'red'],
-                      [0, 0, 0, 0, 'yellow', 'yellow', 'red'],
-                      [0, 0, 0, 'yellow', 'red', 'red', 'red']]
+                      [0, 0, 0, 0, 0, 'yellow', "red"],
+                      [0, 0, 0, 0, 'yellow', 'yellow', "red"],
+                      [0, 0, 0, 'yellow', "red", "red", "red"]]
 
         assert game.checkDiagonal("yellow")
         assert not game.checkDiagonal("red")
@@ -519,11 +519,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column, no diagonal 4 in a row
         game.board = [['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0]]
+                      ["red", 0, 0, 0, 0, 0, 0]]
 
         assert not game.checkDiagonal("yellow")
         assert not game.checkDiagonal("red")
@@ -538,9 +538,9 @@ class Test_TestGameboard(unittest.TestCase):
         game.board = [[0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 'yellow'],
-                      [0, 0, 0, 0, 0, 'yellow', 'red'],
-                      [0, 0, 0, 0, 'yellow', 'yellow', 'red'],
-                      [0, 0, 0, 'yellow', 'red', 'red', 'red']]
+                      [0, 0, 0, 0, 0, 'yellow', "red"],
+                      [0, 0, 0, 0, 'yellow', 'yellow', "red"],
+                      [0, 0, 0, 'yellow', "red", "red", "red"]]
 
         # try calling function with invalid player color
         try:
@@ -572,12 +572,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # filling up first column with vertical 4 in a row
-        game.board = [['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+        game.board = [["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+                      ["red", 'yellow', 'yellow', 0, 0, 0, 0]]
 
         assert game.checkIfWon("red")
         assert not game.checkIfWon("yellow")
@@ -594,7 +594,7 @@ class Test_TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 'yellow', 0, 0, 0, 0],
-                      ['red', 'red', 'yellow', 'red', 'red', 'red', 'red']]
+                      ["red", "red", 'yellow', "red", "red", "red", "red"]]
 
         assert game.checkIfWon("red")
         assert not game.checkIfWon("yellow")
@@ -606,12 +606,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard.Gameboard()
 
         # filling up first column with diagonal \ 4 in a row
-        game.board = [['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+        game.board = [["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 0, 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'red', 'yellow', 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 'yellow', 0, 0, 0]]
+                      ["red", 'yellow', 0, 0, 0, 0, 0],
+                      ["red", "red", 'yellow', 0, 0, 0, 0],
+                      ["red", 'yellow', 'yellow', 'yellow', 0, 0, 0]]
 
         assert game.checkIfWon("yellow")
         assert not game.checkIfWon("red")
@@ -624,11 +624,11 @@ class Test_TestGameboard(unittest.TestCase):
 
         # filling up first column with vertical 4 in a row
         game.board = [[0, 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
-                      ['red', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
                       ['yellow', 'yellow', 0, 0, 0, 0, 0],
-                      ['red', 'yellow', 'yellow', 0, 0, 0, 0]]
+                      ["red", 'yellow', 'yellow', 0, 0, 0, 0]]
 
         assert not game.checkIfWon("red")
         assert not game.checkIfWon("yellow")

@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 from Gameboard import Gameboard
+from sqlite3 import Error
 import logging
+import db
+
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
@@ -18,14 +21,12 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
-    try:
-        # make sure to reference global game variable
-        global game
-        game = Gameboard()
 
-        return render_template("player1_connect.html", status='Pick a Color.')
-    except Exception:
-        return "Could not display player1_connect.html"
+    global game
+    game = Gameboard()
+    db.init_db()
+
+    return render_template("player1_connect.html", status='Pick a Color.')
 
 
 '''
@@ -110,7 +111,7 @@ def p1_move():
 
     try:
         column = request.json['column']
-        game.makeMove(column, 'p1', game.player1)
+        game.makeMove(column, "p1", game.player1)
         return jsonify(move=game.board,
                        invalid=False,
                        winner=game.game_result)
@@ -131,7 +132,7 @@ def p2_move():
 
     try:
         column = request.json['column']
-        game.makeMove(column, 'p2', game.player2)
+        game.makeMove(column, "p2", game.player2)
         return jsonify(move=game.board,
                        invalid=False,
                        winner=game.game_result)

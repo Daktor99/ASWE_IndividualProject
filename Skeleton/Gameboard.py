@@ -1,3 +1,4 @@
+import db
 
 class Gameboard():
     def __init__(self):
@@ -5,7 +6,7 @@ class Gameboard():
         self.player2 = ""
         self.board = [[0 for x in range(7)] for y in range(6)]
         self.game_result = ""
-        self.current_turn = 'p1'
+        self.current_turn = "p1"
         self.remaining_moves = 42
 
     def isValidTurn(self, currPlayer: str) -> bool:
@@ -13,7 +14,7 @@ class Gameboard():
         if type(currPlayer) != str:
             raise TypeError("isValidTurn() takes a string as a parameter")
 
-        if currPlayer not in ['p1', 'p2']:
+        if currPlayer not in ["p1", "p2"]:
             raise ValueError("Valid arguments to isValidTurn: 'p1' or 'p2'")
 
         # check the correct player is making a move
@@ -37,17 +38,17 @@ class Gameboard():
 
     def changeTurn(self):
 
-        if self.current_turn == 'p1':
-            self.current_turn = 'p2'
-        elif self.current_turn == 'p2':
-            self.current_turn = 'p1'
+        if self.current_turn == "p1":
+            self.current_turn = "p2"
+        elif self.current_turn == "p2":
+            self.current_turn = "p1"
         else:
             raise ValueError("current_turn must be 'p1' or 'p2'")
         return
 
     def makeMove(self, column: str, player: str, playerColor: str):
 
-        if playerColor not in ['red', 'yellow']:
+        if playerColor not in ["red", "yellow"]:
             raise ValueError("Please pick a color!")
         elif not self.isValidTurn(player):
             raise ValueError("Not your turn!")
@@ -178,7 +179,7 @@ def checkValidPlayer(playerColor: str) -> bool:
     if type(playerColor) != str:
         raise TypeError("checkValidPlayer takes a string as an argument")
 
-    if playerColor in ['red', 'yellow']:
+    if playerColor in ["red", "yellow"]:
         return True
     else:
         return False
