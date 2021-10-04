@@ -63,10 +63,15 @@ class Gameboard():
         # place in the lowest available slot
         for row in range(0, 6):
             if self.board[5 - row][colNum] == 0:
+                # update the board as necessary
                 self.board[5 - row][colNum] = playerColor
                 self.remaining_moves -= 1
                 self.changeTurn()
                 self.checkIfWon(playerColor)
+
+                # add this move to the db
+                self.add_move()
+
                 return
 
         # if we get here, the column is full, and we cannot make a move
@@ -151,6 +156,17 @@ class Gameboard():
 
         # no diagonal found, return false
         return False
+
+    def add_move(self):
+
+        move = (self.current_turn,
+                str(self.board),
+                self.game_result,
+                self.player1,
+                self.player2,
+                self.remaining_moves)
+
+        db.add_move(move)
 
 
 '''
