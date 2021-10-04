@@ -39,7 +39,8 @@ def add_move(move):  # will take in a tuple
         cur = conn.cursor()
         cur.execute('INSERT INTO GAME VALUES (?, ?, ?, ?, ?, ?)', move)
         conn.commit()
-        print('Added move into database.')
+        print('Added move into database:')
+        print('    ', move)
     except Error as e:
         print(e)
 
