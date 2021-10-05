@@ -23,8 +23,9 @@ Initial Webpage where gameboard is initialized
 def player1_connect():
 
     global game
-    game = Gameboard()
+    db.clear()
     db.init_db()
+    game = Gameboard()
 
     return render_template("player1_connect.html", status='Pick a Color.')
 
@@ -78,17 +79,18 @@ Assign player2 their color
 def p2Join():
     try:
 
+        if game.player1 not in ["red", "yellow"]:
+            return render_template("p2Join.html",
+                                   status="Error, player 1 color not picked!")
+
         if game.player1 == "red":
-            game.player2 = p2Color = "yellow"
-            return render_template("p2Join.html",
-                                   status="Color picked: " + p2Color)
+            game.player2 = "yellow"
         elif game.player1 == "yellow":
-            game.player2 = p2Color = "red"
-            return render_template("p2Join.html",
-                                   status="Color picked: " + p2Color)
-        else:
-            return render_template("p2Join.html",
-                                   status="Error")
+            game.player2 = "red"
+
+        game.add_move()
+        return render_template("p2Join.html",
+                               status="Color picked: " + game.player2)
 
     except Exception:
         return "Error on '/p2join'"
