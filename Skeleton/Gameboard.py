@@ -1,4 +1,5 @@
 import db
+from ast import literal_eval
 
 class Gameboard():
     def __init__(self):
@@ -48,6 +49,8 @@ class Gameboard():
 
     def makeMove(self, column: str, player: str, playerColor: str):
 
+        self.getBoard()
+
         if playerColor not in ["red", "yellow"]:
             raise ValueError("Please pick a color!")
         elif not self.isValidTurn(player):
@@ -78,7 +81,7 @@ class Gameboard():
         # return
         raise ValueError("Cannot make a move in this column, all spots taken.")
 
-    def checkIfWon(self, playerColor: str):
+    def checkIfWon(self, playerColor: str) -> bool:
 
         if not checkValidPlayer(playerColor):
             raise ValueError("Invalid argument, use either 'red' or 'yellow'.")
@@ -91,7 +94,7 @@ class Gameboard():
 
         return False
 
-    def checkHorizontal(self, playerColor: str):
+    def checkHorizontal(self, playerColor: str) -> bool:
 
         if not checkValidPlayer(playerColor):
             raise ValueError("Invalid argument, use either 'red' or 'yellow'")
@@ -111,7 +114,7 @@ class Gameboard():
         # 4 in a row not found horizontally, return False
         return False
 
-    def checkVertical(self, playerColor: str):
+    def checkVertical(self, playerColor: str) -> bool:
 
         if not checkValidPlayer(playerColor):
             raise ValueError("Invalid argument, use either 'red' or 'yellow'")
@@ -131,7 +134,7 @@ class Gameboard():
         # 4 in a row not found vertically, return false
         return False
 
-    def checkDiagonal(self, playerColor: str):
+    def checkDiagonal(self, playerColor: str) -> bool:
 
         if not checkValidPlayer(playerColor):
             raise ValueError("Invalid argument, use either 'red' or 'yellow'")
@@ -167,6 +170,31 @@ class Gameboard():
                 self.remaining_moves)
 
         db.add_move(move)
+        return
+
+    def getBoard(self):
+
+        # get the most recent move from DB
+        move = db.getMove()[0]
+
+        # set gameboard to be this most recent move, elements are (in order):
+        # current turn
+        self.current_turn = move[0]
+        # board
+        # citation - Stack Overflow:
+        # How to convert array to array in Python
+        # https://stackoverflow.com/questions/25572247/how-to-convert-array-string-to-an-array-in-python
+        self.board = literal_eval(move[1])
+        # winner
+        self.game_result = move[2]
+        # player1
+        self.player1 = move[3]
+        # player2
+        self.player2 = move[4]
+        # remaining moves
+        self.remaining_moves = move[5]
+
+        return
 
 
 '''
