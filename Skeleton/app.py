@@ -58,7 +58,13 @@ def player1_config():
     try:
         # setting player1's color
         colorPicked = request.args['color']
-        game.setColors(colorPicked)
+        game.getBoard()
+
+        if game.player2 == "":
+            # if game is in initial state, set colors
+            # and store first move
+            game.setP1Color(colorPicked)
+            db.add_move(game.get_move())
 
         return render_template('player1_connect.html',
                                status="Color picked: " + colorPicked)
@@ -80,6 +86,7 @@ Assign player2 their color
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
     try:
+        game.getBoard()
         return render_template("p2Join.html",
                                status="Color picked: " + game.getP2Color())
     except ValueError as e:
@@ -105,6 +112,7 @@ def p1_move():
     try:
         column = request.json['column']
         game.makeMove(column, "p1", game.player1)
+        db.add_move(game.get_move())
         return jsonify(move=game.board,
                        invalid=False,
                        winner=game.game_result)
@@ -126,6 +134,7 @@ def p2_move():
     try:
         column = request.json['column']
         game.makeMove(column, "p2", game.player2)
+        db.add_move(game.get_move())
         return jsonify(move=game.board,
                        invalid=False,
                        winner=game.game_result)

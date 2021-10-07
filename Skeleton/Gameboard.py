@@ -49,8 +49,6 @@ class Gameboard():
 
     def makeMove(self, column: str, player: str, playerColor: str):
 
-        self.getBoard()
-
         if playerColor not in ["red", "yellow"]:
             raise ValueError("Please pick a color!")
         elif not self.isValidTurn(player):
@@ -71,10 +69,6 @@ class Gameboard():
                 self.remaining_moves -= 1
                 self.changeTurn()
                 self.checkIfWon(playerColor)
-
-                # add this move to the db
-                self.add_move()
-
                 return
 
         # if we get here, the column is full, and we cannot make a move
@@ -160,7 +154,7 @@ class Gameboard():
         # no diagonal found, return false
         return False
 
-    def add_move(self):
+    def get_move(self):
 
         move = (self.current_turn,
                 str(self.board),
@@ -169,38 +163,41 @@ class Gameboard():
                 self.player2,
                 self.remaining_moves)
 
-        db.add_move(move)
-        return
+        return move
 
     def getBoard(self):
 
-        # get the most recent move from DB
-        move = db.getMove()[0]
+        try:
+            # get the most recent move from DB
+            move = db.getMove()[0]
 
-        # set gameboard to be this most recent move, elements are (in order):
-        # current turn
-        self.current_turn = move[0]
-        # board
-        # citation - Stack Overflow:
-        # How to convert array to array in Python
-        # https://stackoverflow.com/questions/25572247/how-to-convert-array-string-to-an-array-in-python
-        self.board = literal_eval(move[1])
-        # winner
-        self.game_result = move[2]
-        # player1
-        self.player1 = move[3]
-        # player2
-        self.player2 = move[4]
-        # remaining moves
-        self.remaining_moves = move[5]
-
-        return
+            # set gameboard to be this most recent move, elements are (in order):
+            # current turn
+            self.current_turn = move[0]
+            # board
+            # citation - Stack Overflow:
+            # How to convert array to array in Python
+            # https://stackoverflow.com/questions/25572247/how-to-convert-array-string-to-an-array-in-python
+            self.board = literal_eval(move[1])
+            # winner
+            self.game_result = move[2]
+            # player1
+            self.player1 = move[3]
+            # player2
+            self.player2 = move[4]
+            # remaining moves
+            self.remaining_moves = move[5]
+            return
+        except IndexError:
+            return
 
     """
     TODO: Write tests for setColors 
     """
-    def setColors(self, p1Color: str):
+    def setP1Color(self, p1Color: str):
 
+        if type(p1Color) != str:
+            raise TypeError
         if p1Color not in ['red', 'yellow']:
             raise ValueError("p1 must pick 'red' or 'yellow")
 
@@ -209,9 +206,6 @@ class Gameboard():
             self.player2 = "yellow"
         else:
             self.player2 = "red"
-
-        self.add_move()
-
         return
 
     def getP2Color(self) -> str:
