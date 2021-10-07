@@ -658,3 +658,87 @@ class Test_TestGameboard(unittest.TestCase):
             assert False
         except TypeError:
             assert True
+
+    """
+    Testing Gameboard's setColors function
+    """
+
+    # regular usage: player1 is 'red'
+    def test_setP1Color1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # checking to see if we set correct colors
+        game.setP1Color('red')
+        assert game.player1 == 'red'
+        assert game.player2 == 'yellow'
+
+    # irregular argument being passed 'blue
+    def test_setP1Colors2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # checking to make sure that we get a ValueError
+        try:
+            game.setP1Color('blue')
+            assert False
+        except ValueError:
+            assert True
+
+    # passing invalid argument type
+    def test_setP1Colors2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        # checking to make sure that we get a ValueError
+        try:
+            game.setP1Color(13)
+            assert False
+        except TypeError:
+            assert True
+
+    """
+    Testing Gameboard's getP2Color function
+    """
+
+    # testing regular functionality
+    def test_getP2Color1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        game.setP1Color('red')
+        assert game.getP2Color() == 'yellow'
+
+        game.setP1Color('yellow')
+        assert game.getP2Color() == 'red'
+
+    # testing when p1 has not picked color
+    def test_getP2Color2(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        try:
+            game.getP2Color()
+            assert False
+        except ValueError:
+            assert True
+
+    # testing when p1 color has incorrect value such as blue
+    def test_getP2Color3(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+
+        try:
+            game.player2 = 'blue'
+            game.getP2Color()
+            assert False
+        except ValueError:
+            assert True
+
+
