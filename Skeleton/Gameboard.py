@@ -196,6 +196,32 @@ class Gameboard():
 
         return
 
+    """
+    TODO: Write tests for setColors 
+    """
+    def setColors(self, p1Color: str):
+
+        if p1Color not in ['red', 'yellow']:
+            raise ValueError("p1 must pick 'red' or 'yellow")
+
+        self.player1 = p1Color
+        if p1Color == 'red':
+            self.player2 = "yellow"
+        else:
+            self.player2 = "red"
+
+        self.add_move()
+
+        return
+
+    def getP2Color(self) -> str:
+
+        if self.player2 in ['red', 'yellow']:
+            return self.player2
+        else:
+            raise ValueError("Error: player 1 color not picked!\n" +
+                             "Have player 1 pick and reload page.")
+
 
 '''
 Add Helper functions as needed to handle moves and update board and turns

@@ -27,6 +27,7 @@ def player1_connect():
     db.init_db()
     game = Gameboard()
 
+
     return render_template("player1_connect.html", status='Pick a Color.')
 
 
@@ -57,12 +58,13 @@ def player1_config():
     try:
         # setting player1's color
         colorPicked = request.args['color']
-        game.player1 = colorPicked
+        game.setColors(colorPicked)
 
         return render_template('player1_connect.html',
                                status="Color picked: " + colorPicked)
-    except Exception:
-        return "Error with /p1Color"
+    except ValueError as e:
+        return render_template('player1_connect.html',
+                               status=str(e))
 
 
 '''
@@ -78,22 +80,11 @@ Assign player2 their color
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
     try:
-
-        if game.player1 not in ["red", "yellow"]:
-            return render_template("p2Join.html",
-                                   status="Error, player 1 color not picked!")
-
-        if game.player1 == "red":
-            game.player2 = "yellow"
-        elif game.player1 == "yellow":
-            game.player2 = "red"
-
-        game.add_move()
         return render_template("p2Join.html",
-                               status="Color picked: " + game.player2)
-
-    except Exception:
-        return "Error on '/p2join'"
+                               status="Color picked: " + game.getP2Color())
+    except ValueError as e:
+        return render_template("p2Join.html",
+                               status=str(e))
 
 
 '''
