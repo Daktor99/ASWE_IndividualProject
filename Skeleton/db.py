@@ -63,6 +63,7 @@ def getMove():
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute('SELECT * FROM GAME ORDER BY remaining_moves LIMIT 1')
+        print("Getting Gameboard object from DB")
         return cur.fetchall()
     except Error as e:
         print(e)
