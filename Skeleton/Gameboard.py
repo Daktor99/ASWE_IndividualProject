@@ -1,6 +1,7 @@
 import db
 from ast import literal_eval
 
+
 class Gameboard():
     def __init__(self):
         self.player1 = ""
@@ -172,7 +173,7 @@ class Gameboard():
             # get the most recent move from DB
             move = db.getMove()[0]
 
-            # set gameboard to be this most recent move, elements are (in order):
+            # set gameboard to be this most recent move:
             # current turn
             self.current_turn = move[0]
             # board
@@ -193,7 +194,7 @@ class Gameboard():
             return
 
     """
-    TODO: Write tests for setColors 
+    TODO: Write tests for setColors
     """
     def setP1Color(self, p1Color: str):
 

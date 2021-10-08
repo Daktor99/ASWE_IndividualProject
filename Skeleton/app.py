@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 from Gameboard import Gameboard
-from sqlite3 import Error
 import logging
 import db
 
@@ -26,7 +25,6 @@ def player1_connect():
     db.clear()
     db.init_db()
     game = Gameboard()
-
 
     return render_template("player1_connect.html", status='Pick a Color.')
 

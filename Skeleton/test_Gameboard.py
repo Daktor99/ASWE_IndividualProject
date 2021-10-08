@@ -868,8 +868,10 @@ class Test_TestGameboard(unittest.TestCase):
             assert str(game.board) == ("[[0, 0, 0, 'yellow', 0, 0, 0], " +
                                        "[0, 0, 0, 'red', 0, 0, 0], " +
                                        "['red', 0, 0, 'yellow', 0, 0, 0], " +
-                                       "['red', 0, 'yellow', 'red', 0, 0, 0], " +
-                                       "['red', 0, 'yellow', 'yellow', 0, 0, 0], " +
+                                       "['red', 0, 'yellow', 'red'" +
+                                       ", 0, 0, 0], " +
+                                       "['red', 0, 'yellow', 'yellow'" +
+                                       ", 0, 0, 0], " +
                                        "['red', 0, 'yellow', 'red', 0, 0, 0]]")
             assert game.game_result == 'red'
             assert game.player1 == 'red'
