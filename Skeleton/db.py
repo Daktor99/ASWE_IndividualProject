@@ -48,6 +48,7 @@ def add_move(move):  # will take in a tuple
         if conn:
             conn.close()
 
+
 '''
 Get the last move played
 return (current_turn, board, winner, player1, player2, remaining_moves)
