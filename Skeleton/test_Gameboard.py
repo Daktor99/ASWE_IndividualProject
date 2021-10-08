@@ -1,9 +1,9 @@
 import unittest
 import Gameboard
+from unittest.mock import patch
 
 
 class Test_TestGameboard(unittest.TestCase):
-
     """
     Testing Gameboard's getColumnNum function
     """
@@ -688,7 +688,7 @@ class Test_TestGameboard(unittest.TestCase):
             assert True
 
     # passing invalid argument type
-    def test_setP1Colors2(self):
+    def test_setP1Colors3(self):
 
         # initializing game
         game = Gameboard.Gameboard()
@@ -741,4 +741,136 @@ class Test_TestGameboard(unittest.TestCase):
         except ValueError:
             assert True
 
+    """
+    Testing Gameboard's get_move function
+    """
 
+    # testing regular functionality
+    def test_getMove1(self):
+
+        # initializing game
+        game = Gameboard.Gameboard()
+        move = game.getMove()
+
+        assert move[0] == game.current_turn
+        assert move[1] == str(game.board)
+        assert move[2] == game.game_result
+        assert move[3] == game.player1
+        assert move[4] == game.player2
+        assert move[5] == game.remaining_moves
+
+    # testing getMove on non-initial state
+    def test_getMove2(self):
+
+        # initializing gameboard
+        game = Gameboard.Gameboard()
+
+        # setting gameboard instances:
+        game.board = [['yellow', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0],
+                      ['yellow', 0, 0, 0, 0, 0, 0],
+                      ["red", 0, 0, 0, 0, 0, 0]]
+        game.player1 = 'red'
+        game.player2 = 'yellow'
+        game.remaining_moves = 36
+
+        move = game.getMove()
+
+        assert move[0] == game.current_turn
+        assert move[1] == str(game.board)
+        assert move[2] == game.game_result
+        assert move[3] == game.player1
+        assert move[4] == game.player2
+        assert move[5] == game.remaining_moves
+
+    """"
+    Testing Gameboard's getBoard function
+    """
+
+    # testing with normal return value
+    def test_getBoard1(self):
+
+        with patch("db.getMove") as getMoveMock:
+            # initializing game
+            game = Gameboard.Gameboard()
+
+            # set the return type of function call
+            getMoveMock.return_value = [(
+                "red",
+                "[[0, 0, 0, 0, 0, 0, 0], " +
+                "[0, 0, 0, 0, 0, 0, 0], " +
+                "[0, 0, 0, 0, 0, 0, 0], " +
+                "[0, 0, 0, 0, 0, 0, 0], " +
+                "[0, 0, 0, 0, 0, 0, 0], " +
+                "[0, 0, 0, 0, 0, 0, 0]]",
+                "",
+                "red",
+                "yellow",
+                "42"
+            )]
+
+            game.getBoard()
+
+            assert game.current_turn == "red"
+            assert str(game.board) == ("[[0, 0, 0, 0, 0, 0, 0], " +
+                                       "[0, 0, 0, 0, 0, 0, 0], " +
+                                       "[0, 0, 0, 0, 0, 0, 0], " +
+                                       "[0, 0, 0, 0, 0, 0, 0], " +
+                                       "[0, 0, 0, 0, 0, 0, 0], " +
+                                       "[0, 0, 0, 0, 0, 0, 0]]")
+            assert game.game_result == ""
+            assert game.player1 == "red"
+            assert game.player2 == "yellow"
+
+    # testing when there is nothing in db
+    def test_getBoard2(self):
+
+        with patch('db.getMove') as getMoveMock:
+
+            # initializing gameboard
+            game = Gameboard.Gameboard()
+
+            getMoveMock.return_value = []
+
+            try:
+                game.getBoard()
+                assert True
+            except IndexError:
+                assert False
+
+    # testing with non-trivial values in gameboard
+    def test_getBoard3(self):
+
+        with patch("db.getMove") as getMoveMock:
+            # initializing game
+            game = Gameboard.Gameboard()
+
+            # set the return type of function call
+            getMoveMock.return_value = [(
+                "yellow",
+                "[[0, 0, 0, 'yellow', 0, 0, 0], " +
+                "[0, 0, 0, 'red', 0, 0, 0], " +
+                "['red', 0, 0, 'yellow', 0, 0, 0], " +
+                "['red', 0, 'yellow', 'red', 0, 0, 0], " +
+                "['red', 0, 'yellow', 'yellow', 0, 0, 0], " +
+                "['red', 0, 'yellow', 'red', 0, 0, 0]]",
+                "red",
+                "red",
+                "yellow",
+                "29"
+            )]
+
+            game.getBoard()
+
+            assert game.current_turn == 'yellow'
+            assert str(game.board) == ("[[0, 0, 0, 'yellow', 0, 0, 0], " +
+                                       "[0, 0, 0, 'red', 0, 0, 0], " +
+                                       "['red', 0, 0, 'yellow', 0, 0, 0], " +
+                                       "['red', 0, 'yellow', 'red', 0, 0, 0], " +
+                                       "['red', 0, 'yellow', 'yellow', 0, 0, 0], " +
+                                       "['red', 0, 'yellow', 'red', 0, 0, 0]]")
+            assert game.game_result == 'red'
+            assert game.player1 == 'red'
+            assert game.player2 == 'yellow'
