@@ -64,7 +64,7 @@ def player1_config():
             # if game is in initial state, set colors
             # and store first move
             game.setP1Color(colorPicked)
-            db.add_move(game.get_move())
+            db.add_move(game.getMove())
 
         return render_template('player1_connect.html',
                                status="Color picked: " + colorPicked)
@@ -112,7 +112,7 @@ def p1_move():
     try:
         column = request.json['column']
         game.makeMove(column, "p1", game.player1)
-        db.add_move(game.get_move())
+        db.add_move(game.getMove())
         return jsonify(move=game.board,
                        invalid=False,
                        winner=game.game_result)
@@ -134,7 +134,7 @@ def p2_move():
     try:
         column = request.json['column']
         game.makeMove(column, "p2", game.player2)
-        db.add_move(game.get_move())
+        db.add_move(game.getMove())
         return jsonify(move=game.board,
                        invalid=False,
                        winner=game.game_result)

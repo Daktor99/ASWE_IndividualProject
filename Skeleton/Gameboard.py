@@ -154,7 +154,7 @@ class Gameboard():
         # no diagonal found, return false
         return False
 
-    def get_move(self):
+    def getMove(self):
 
         move = (self.current_turn,
                 str(self.board),
@@ -165,6 +165,7 @@ class Gameboard():
 
         return move
 
+    # intends to leave gameboard unchanged if nothing found in db
     def getBoard(self):
 
         try:
