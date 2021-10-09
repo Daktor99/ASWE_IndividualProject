@@ -16,3 +16,6 @@ https://youtu.be/V61vbsLQn98
 
 ### Part 2 YouTube Link
 https://youtu.be/g8i0HZjWGn8
+
+### Part 3 YouTube Link
+https://youtu.be/9JBvm57Oz-w
