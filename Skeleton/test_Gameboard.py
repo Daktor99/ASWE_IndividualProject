@@ -793,12 +793,13 @@ class Test_TestGameboard(unittest.TestCase):
     def test_getBoard1(self):
 
         with patch("db.getMove") as getMoveMock:
+
             # initializing game
             game = Gameboard.Gameboard()
 
             # set the return type of function call
             getMoveMock.return_value = [(
-                "red",
+                "p1",
                 "[[0, 0, 0, 0, 0, 0, 0], " +
                 "[0, 0, 0, 0, 0, 0, 0], " +
                 "[0, 0, 0, 0, 0, 0, 0], " +
@@ -813,7 +814,7 @@ class Test_TestGameboard(unittest.TestCase):
 
             game.getBoard()
 
-            assert game.current_turn == "red"
+            assert game.current_turn == "p1"
             assert str(game.board) == ("[[0, 0, 0, 0, 0, 0, 0], " +
                                        "[0, 0, 0, 0, 0, 0, 0], " +
                                        "[0, 0, 0, 0, 0, 0, 0], " +
@@ -849,7 +850,7 @@ class Test_TestGameboard(unittest.TestCase):
 
             # set the return type of function call
             getMoveMock.return_value = [(
-                "yellow",
+                "p2",
                 "[[0, 0, 0, 'yellow', 0, 0, 0], " +
                 "[0, 0, 0, 'red', 0, 0, 0], " +
                 "['red', 0, 0, 'yellow', 0, 0, 0], " +
@@ -864,7 +865,7 @@ class Test_TestGameboard(unittest.TestCase):
 
             game.getBoard()
 
-            assert game.current_turn == 'yellow'
+            assert game.current_turn == 'p2'
             assert str(game.board) == ("[[0, 0, 0, 'yellow', 0, 0, 0], " +
                                        "[0, 0, 0, 'red', 0, 0, 0], " +
                                        "['red', 0, 0, 'yellow', 0, 0, 0], " +
