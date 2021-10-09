@@ -31,7 +31,14 @@ Insert Tuple into table
 '''
 
 
-def add_move(move):  # will take in a tuple
+def add_move(move: tuple):  # will take in a tuple
+
+    if type(move[5]) != int:
+        raise TypeError("Last element in move argument must be int")
+    for element in move[:5]:
+        if type(element) != str:
+            raise TypeError("All move elements except" +
+                            " for the last element must string")
 
     conn = None
     try:
@@ -42,7 +49,7 @@ def add_move(move):  # will take in a tuple
         print('Added move into database:')
         print('    ', move)
     except Error as e:
-        print(e)
+        raise e
 
     finally:
         if conn:
