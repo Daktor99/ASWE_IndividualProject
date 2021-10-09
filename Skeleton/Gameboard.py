@@ -191,7 +191,7 @@ class Gameboard():
             self.remaining_moves = move[5]
             return
         except IndexError:
-            return
+            return None
 
     """
     TODO: Write tests for setColors

@@ -22,7 +22,12 @@ Initial Webpage where gameboard is initialized
 def player1_connect():
 
     global game
-    db.clear()
+
+    # clear db if it exists
+    if db.getMove():
+        db.clear()
+
+    # initialize new db and start game
     db.init_db()
     game = Gameboard()
 
@@ -56,11 +61,7 @@ def player1_config():
     try:
         # setting player1's color
         colorPicked = request.args['color']
-        game.getBoard()
-
-        if game.player2 == "":
-            # if game is in initial state, set colors
-            # and store first move
+        if game.getBoard() is None:
             game.setP1Color(colorPicked)
             db.add_move(game.getMove())
 
