@@ -2,10 +2,10 @@
 Individual project for Fall 2021: Part 1
 
 ## Notes for IAs that are grading:
-I have developed this before we were told to branch our main branch, I have each part isolated in the following branches:
--Part1: Holds Individual Assignment #1
--Part2: Holds Individual Assignment #2
--Part3: Holds Individual Assignment #3
+I have developed this before we were told to branch our main branch, I have each part isolated in the following branches:  
+-Part1: Holds Individual Assignment #1  
+-Part2: Holds Individual Assignment #2  
+-Part3: Holds Individual Assignment #3  
 
 ## Personal Info:
 Full name: Emanuel Daka
